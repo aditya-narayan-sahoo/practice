@@ -38,6 +38,15 @@ app.put("/", (req, res) => {
   res.json({});
 });
 
-app.delete("/", (req, res) => {});
+app.delete("/", (req, res) => {
+  const newKidneys = [];
+  for (let i = 0; i < users.length; i++) {
+    if (users[0].kidneys[i].healthy) {
+      newKidneys.push({ healthy: true });
+    }
+  }
+  users[0].kidneys = newKidneys;
+  res.json({ msg: "Done" });
+});
 
 app.listen(5173);
