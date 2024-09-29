@@ -31,7 +31,12 @@ app.post("/", (req, res) => {
   });
 });
 
-app.put("/", (req, res) => {});
+app.put("/", (req, res) => {
+  for (let i = 0; i < users.length; i++) {
+    users[0].kidneys[i].healthy = true;
+  }
+  res.json({});
+});
 
 app.delete("/", (req, res) => {});
 
