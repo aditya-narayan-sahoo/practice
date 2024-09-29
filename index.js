@@ -7,6 +7,8 @@ let users = [
   },
 ];
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   const kidneys = users[0].kidneys;
   const healthyKidneys = kidneys.filter((kidney) => kidney.healthy);
@@ -18,7 +20,16 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/", (req, res) => {});
+//send post req using postman or similar software
+app.post("/", (req, res) => {
+  const isHealthy = req.body.isHealthy;
+  users[0].kidneys.push({
+    healthy: isHealthy,
+  });
+  res.json({
+    msg: "Done!",
+  });
+});
 
 app.put("/", (req, res) => {});
 
