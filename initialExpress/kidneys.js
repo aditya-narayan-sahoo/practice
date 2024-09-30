@@ -1,7 +1,7 @@
 const express = require("express");
 
 const app = express();
-app.use(express.json());
+app.use(express.json()); //middleware to ensure body passed by someone hitting this endpoint is parsed.
 
 const authenticateUser = (req, res, next) => {
   const username = req.headers.username;
@@ -34,6 +34,12 @@ app.post("/replace-kidney", authenticateUser, (req, res) => {
   const { kidneyId } = req.body; // Assuming we're sending kidneyId in the body
   // Perform some action with kidneyId here
   res.send(`Kidney information received for kidney ID: ${kidneyId}`);
+});
+
+// Global error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ msg: "Internal Server Error", error: err.message });
 });
 
 app.listen(5173, () => {
